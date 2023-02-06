@@ -1,0 +1,30 @@
+class Solution{
+public:
+    bool flag = 0;
+    long long int dfs(Node *root, int target,int dir,bool f){
+        
+        int ans = 0;
+        
+        if(root==NULL) return 0;
+        
+        if(f&&dir==0)  ans = root->data; 
+        
+        if(root->data==target){
+            flag = 1;
+            dir = 0; f = 1;   
+        }
+        
+        ans+=dfs(root->left,target,dir-1,f);
+        
+        ans+=dfs(root->right,target,dir+1,f);
+        
+        return ans;
+    }
+    long long int verticallyDownBST(Node *root,int target){
+        
+        int val = dfs(root,target,0,0);
+        if(flag) return val;
+        return -1;
+        
+    }
+};
